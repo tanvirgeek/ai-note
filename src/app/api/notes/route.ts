@@ -1,5 +1,6 @@
 import { createNoteSchema } from "@/lib/validation/note";
 import { auth } from "@clerk/nextjs";
+import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const note = await prisma?.note.create({
+    const note = await prisma.note.create({
       data: {
         title,
         content,
